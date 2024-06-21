@@ -1,0 +1,23 @@
+{
+"com.badlogic.gdx.graphics.Color": {
+	"RGBA_160_17_17_255": {
+		"r": 0.627451,
+		"g": 0.06666667,
+		"b": 0.06666667,
+		"a": 1
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable": {
+	"Knob-export": {
+		"region": "Knob-export",
+		"minWidth": 100,
+		"minHeight": 100
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle": {
+	"default": {
+		"background": "JoystickRound-export",
+		"knob": "Knob-export"
+	}
+}
+}

@@ -1,0 +1,27 @@
+
+jj.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+JA
+  rotate: false
+  xy: 1, 301
+  size: 200, 100
+  orig: 200, 100
+  offset: 0, 0
+  index: -1
+JoystickRound
+  rotate: false
+  xy: 1, 99
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+Knob
+  rotate: false
+  xy: 203, 201
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1

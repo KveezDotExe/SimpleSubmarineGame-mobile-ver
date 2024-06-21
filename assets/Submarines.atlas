@@ -1,0 +1,11 @@
+Submarines.png
+size:1024,32
+repeat:none
+Enemy
+bounds:544,0,78,32
+Torpedo_Explose
+bounds:0,0,544,32
+Torpedo_Meksikano
+bounds:700,16,16,16
+WoodSubmarine
+bounds:622,0,78,32

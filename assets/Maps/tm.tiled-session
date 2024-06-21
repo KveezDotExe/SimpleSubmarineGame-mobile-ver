@@ -1,0 +1,39 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "bricks.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map.tmx": {
+            "scale": 1,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 508.5,
+                "y": 362
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/kosty/Documents/subgame/assets/Maps",
+    "last.imagePath": "C:/Users/kosty/Documents/subgame/assets/Maps",
+    "map.lastUsedExportFilter": "Все файлы (*)",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+        "map.tmx",
+        "bricks.tsx"
+    ],
+    "project": "tm.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "map.tmx",
+        "bricks.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

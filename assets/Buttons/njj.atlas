@@ -1,0 +1,27 @@
+
+njj.png
+size: 512, 512
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+JoystickRound
+  rotate: false
+  xy: 1, 128
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+Knob
+  rotate: false
+  xy: 1, 1
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+Knob.
+  rotate: false
+  xy: 203, 253
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1

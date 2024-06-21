@@ -1,0 +1,24 @@
+{
+"com.badlogic.gdx.graphics.Color": {
+	"RGBA_89_15_227_255": {
+		"r": 0.34901962,
+		"g": 0.05882353,
+		"b": 0.8901961,
+		"a": 1
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable": {
+	"Knob2": {
+		"region": "Knob",
+		"color": "RGBA_89_15_227_255",
+		"minWidth": 100,
+		"minHeight": 100
+	}
+},
+"com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle": {
+	"default": {
+		"background": "JoystickRound",
+		"knob": "Knob."
+	}
+}
+}

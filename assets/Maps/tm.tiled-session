@@ -13,11 +13,11 @@
             "scaleInEditor": 1
         },
         "map.tmx": {
-            "scale": 1,
-            "selectedLayer": 4,
+            "scale": 4,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 508.5,
-                "y": 362
+                "x": 490.125,
+                "y": 287.75
             }
         }
     },
@@ -32,8 +32,8 @@
     "project": "tm.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "map.tmx",
-        "bricks.tsx"
+        "bricks.tsx",
+        "map.tmx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }

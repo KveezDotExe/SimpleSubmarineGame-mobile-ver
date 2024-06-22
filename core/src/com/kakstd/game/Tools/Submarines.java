@@ -1,7 +1,5 @@
 package com.kakstd.game.Tools;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ai.GdxAI;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.ai.steer.behaviors.Wander;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -19,9 +17,8 @@ import com.badlogic.gdx.physics.box2d.RayCastCallback;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.kakstd.game.Screens.PlayScreen;
-import com.kakstd.game.Sprites.Enemies;
+import com.kakstd.game.Sprites.Enemy;
 import com.kakstd.game.Sprites.Ground;
-import com.kakstd.game.Sprites.Submarine;
 import com.kakstd.game.Sprites.Torpedo_enemy;
 import com.kakstd.game.SubmarineGame;
 
@@ -36,12 +33,14 @@ public abstract class Submarines  extends Sprite {
     public World world;
     public Body b2d;
     private TextureRegion submarineStand;
+    private Vector2 player_pos;
     private Animation submarineSwim;
     private float stateTimer;
     private boolean swimmingRight;
-    int xPos, yPos;
-    String type;
+    protected String type;
     public int Health;
+    protected Fixture fixture;
+    public boolean isAlive = true;
 
 
     // ENEMY VAR
@@ -54,7 +53,7 @@ public abstract class Submarines  extends Sprite {
     private float enemy_stateTimer;
     private boolean enemy_swimmingRight;
     Vector2 pos;
-    String enemy_type;
+    protected String enemy_type;
     public static FixtureDef fire_area_fixture;
     public static CircleShape fire_area_shape;
     protected  float playerXpos, playerYpos;
@@ -70,10 +69,9 @@ public abstract class Submarines  extends Sprite {
     Arrive<Vector2> arrive;
     PlayScreen screen;
     // PLAYER CONSTRUCTOR
-    public  Submarines(World world, PlayScreen screen, int xPos, int yPos, String type){
+    public  Submarines(World world, PlayScreen screen,Vector2 player_pos, String type){
         super(screen.getAtlas().findRegion("WoodSubmarine"));
-        this.xPos = xPos;
-        this.yPos = yPos;
+        this.player_pos = player_pos;
         this.world = world;
         this.type = type;
         defineSubmarine();
@@ -89,6 +87,8 @@ public abstract class Submarines  extends Sprite {
                     frames.add(new TextureRegion(getTexture(), i + 39, 0, 39, 25));
 
                 }
+                //def stats
+                Health = 500;
                 //def sensors
                 FixtureDef fdef = new FixtureDef();
                 CircleShape player_hitBox = new CircleShape();
@@ -139,16 +139,16 @@ public abstract class Submarines  extends Sprite {
     public void defineSubmarine(){
         BodyDef bdef = new BodyDef();
         bdef.linearDamping = 1f;
-        bdef.position.set(xPos/ SubmarineGame.PPM,yPos/SubmarineGame.PPM);
+        bdef.position.set(player_pos);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2d = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         fdef.filter.categoryBits = SubmarineGame.PLAYER_BIT;
-        fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.ENEMY_BIT | SubmarineGame.GROUND_BIT;
+        fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.ENEMY_BIT | SubmarineGame.GROUND_BIT | SubmarineGame.BULLET_BIT;
         CircleShape shape = new CircleShape();
         shape.setRadius(15/SubmarineGame.PPM);
         fdef.shape = shape;
-        b2d.createFixture(fdef);
+        fixture = b2d.createFixture(fdef);
     }
     public Body getBody(){
         return b2d;
@@ -169,9 +169,9 @@ public abstract class Submarines  extends Sprite {
         enemy_currentState = enemy_State.STANDING;
         enemy_previousState = enemy_State.STANDING;
         enemy_stateTimer = 0;
-        swimmingRight = true;
+        enemy_swimmingRight = true;
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        switch (type) {
+        switch (enemy_type) {
             case ("enemy_lvl_1"):
                 for (int i = 505; i < 583; i += 39) {
                     frames.add(new TextureRegion(getTexture(), i + 39, 0, 39, 25));
@@ -190,7 +190,7 @@ public abstract class Submarines  extends Sprite {
                 fire_area_fixture.isSensor = true;
                 b2d.createFixture(fire_area_fixture).setUserData("enemy_box");
                 //def idle pos
-                submarineStand = new TextureRegion(getTexture(), 544, 0, 39, 25);
+                enemy_submarineStand = new TextureRegion(getTexture(), 544, 0, 39, 25);
                 //def stats
                 Health = 100;
                 enemy = new EnemiesSteeringBehaviour(b2d, 15/SubmarineGame.PPM);
@@ -202,52 +202,35 @@ public abstract class Submarines  extends Sprite {
                 enemy.setBehavior(arrive);
                 break;
         }
-        submarineSwim = new Animation(0.1f,frames);
+        enemy_submarineSwim = new Animation(0.1f,frames);
         frames.clear();
         setBounds(0,0, 39/SubmarineGame.PPM, 25/SubmarineGame.PPM);
-        setRegion(submarineStand);
+        setRegion(enemy_submarineStand);
         //detecting
         ar = new Circle();
         ar.setRadius(500f/SubmarineGame.PPM);
     }
-    public void update(float dt, float x, float y){
-        if(Health <=0 ){
-            enemy_isAlive = false;
-        }
-        setPosition(b2d.getPosition().x - getWidth()/2, b2d.getPosition().y - getHeight()/2);
-        setRegion(getFrame(dt));
-        ar.setPosition(b2d.getPosition().x - getWidth()/2, b2d.getPosition().y - getHeight()/2);
-        targetX = x;
-        targetY = y;
-        if (ar.contains(x,y)) {
-
-            playerXpos = x - b2d.getPosition().x;
-            playerYpos = y - b2d.getPosition().y;
-        }
-        enemy_fStart += dt;
-
-    }
     public TextureRegion enemy_getFrame(float dt){
         enemy_currentState = enemy_getState();
         TextureRegion region;
-        switch (currentState){
+        switch (enemy_currentState){
             case SWIMMING:
-                region = (TextureRegion) submarineSwim.getKeyFrame(stateTimer, true);
+                region = (TextureRegion) enemy_submarineSwim.getKeyFrame(enemy_stateTimer, true);
                 break;
             case STANDING:
             default:
-                region = submarineStand;
+                region = enemy_submarineStand;
                 break;
         }
-        if((b2d.getLinearVelocity().x <0 || !swimmingRight) && !region.isFlipX()){
+        if((b2d.getLinearVelocity().x <0 || !enemy_swimmingRight) && !region.isFlipX()){
             region.flip(true, false);
-            swimmingRight = false;
-        } else if ((b2d.getLinearVelocity().x > 0 ||swimmingRight) && region.isFlipX()) {
+            enemy_swimmingRight = false;
+        } else if ((b2d.getLinearVelocity().x > 0 ||enemy_swimmingRight) && region.isFlipX()) {
             region.flip(true,false);
-            swimmingRight = true;
+            enemy_swimmingRight = true;
         }
-        stateTimer = currentState == previousState ? stateTimer + dt : 0;
-        previousState = currentState;
+        enemy_stateTimer = enemy_currentState == enemy_previousState ? enemy_stateTimer + dt : 0;
+        enemy_previousState = enemy_currentState;
         return region;
     }
     public enemy_State enemy_getState(){
@@ -266,11 +249,11 @@ public abstract class Submarines  extends Sprite {
         b2d = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         fdef.filter.categoryBits = SubmarineGame.ENEMY_BIT;
-        fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.PLAYER_BIT | SubmarineGame.GROUND_BIT;
+        fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.PLAYER_BIT | SubmarineGame.GROUND_BIT | SubmarineGame.BULLET_BIT;
         CircleShape shape = new CircleShape();
         shape.setRadius(15/SubmarineGame.PPM);
         fdef.shape = shape;
-        b2d.createFixture(fdef);
+        fixture = b2d.createFixture(fdef);
     }
     public RayCastCallback callback = new RayCastCallback() {
         @Override
@@ -291,6 +274,8 @@ public abstract class Submarines  extends Sprite {
 
     public abstract void update(float dt);
     public abstract void enemy_update(float dt, float x, float y);
-    public abstract void AI(LinkedList<Torpedo_enemy> ammo, PlayScreen screen, Enemies enem, Torpedo_enemy torpedoEnemy, float dt);
+    public abstract void AI(LinkedList<Torpedo_enemy> ammo, PlayScreen screen, Enemy enem, Torpedo_enemy torpedoEnemy, float dt);
+    public abstract void onDamage();
+    public abstract int getHealth();
 
 }

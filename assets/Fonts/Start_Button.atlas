@@ -1,0 +1,7 @@
+Start_Button.png
+size:518,260
+repeat:none
+ButtonDown
+bounds:260,2,256,256
+ButtonUp
+bounds:2,2,256,256

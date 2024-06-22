@@ -25,7 +25,7 @@ public class Torpedo_player extends Torpedo {
     public Torpedo_player(World world, PlayScreen screen, Player player, float knobX, float knobY) {
         super(world, screen, player, knobX, knobY);
         fixture.setUserData(this);
-        f_fixture = fixture;
+
     }
 
     @Override

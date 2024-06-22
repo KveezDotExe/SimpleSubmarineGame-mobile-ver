@@ -22,10 +22,9 @@ import java.util.LinkedList;
 public class Torpedo_enemy extends Torpedo {
     public static Fixture f_fixture;
 
-    public Torpedo_enemy(World world, PlayScreen screen, Enemies player, float knobX, float knobY) {
+    public Torpedo_enemy(World world, PlayScreen screen, Enemy player, float knobX, float knobY) {
         super(world, screen, player, knobX, knobY);
         fixture.setUserData(this);
-        f_fixture = fixture;
     }
 
     @Override

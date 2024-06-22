@@ -5,10 +5,9 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
-import com.kakstd.game.Sprites.Enemies;
+import com.kakstd.game.Sprites.Enemy;
 import com.kakstd.game.Sprites.InteractiveTileObject;
-import com.kakstd.game.Sprites.Submarine;
+import com.kakstd.game.Sprites.Player;
 import com.kakstd.game.Sprites.Torpedo_enemy;
 import com.kakstd.game.Sprites.Torpedo_player;
 
@@ -26,13 +25,13 @@ public class WorldContactListener implements ContactListener {
                     ((Torpedo) torpedoBox.getUserData()).Explosion();
 
                 }
-                if (object.getUserData() == "enemy_box" && torpedoBox.getUserData().getClass() == Torpedo_player.class) {
-                    Enemies.onDamage();
+                if (object.getUserData().getClass() == Enemy.class && torpedoBox.getUserData().getClass() == Torpedo_player.class) {
+                    ((Submarines) object.getUserData()).onDamage();
                     ((Torpedo) torpedoBox.getUserData()).Explosion();
 
                 }
-                if (object.getUserData() == "player_box" && torpedoBox.getUserData().getClass() == Torpedo_enemy.class) {
-                    Submarine.onGamage();
+                if (object.getUserData().getClass() == Player.class && torpedoBox.getUserData().getClass() == Torpedo_enemy.class) {
+                    ((Submarines) object.getUserData()).onDamage();
                     ((Torpedo) torpedoBox.getUserData()).Explosion();
                 }
                 if(torpedoBox.getUserData().getClass() == Torpedo_player.class && object.getUserData().getClass() == Torpedo_enemy.class){

@@ -11,7 +11,17 @@ import java.util.LinkedList;
 
 public class Enemy extends Submarines {
     @Override
-    public void AI(LinkedList<Torpedo_enemy> ammo, PlayScreen screen, Enemies enem, Torpedo_enemy torpedoEnemy, float dt) {
+    public int getHealth() {
+        return Health;
+    }
+
+    @Override
+    public void onDamage() {
+        Health = Health - 20;
+    }
+
+    @Override
+    public void AI(LinkedList<Torpedo_enemy> ammo, PlayScreen screen, Enemy enem, Torpedo_enemy torpedoEnemy, float dt) {
         if(ar.contains(targetX,targetY)) {
             enemy.update(dt);
             GdxAI.getTimepiece().update(dt);
@@ -31,7 +41,7 @@ public class Enemy extends Submarines {
             enemy_isAlive = false;
         }
         setPosition(b2d.getPosition().x - getWidth()/2, b2d.getPosition().y - getHeight()/2);
-        setRegion(getFrame(dt));
+        setRegion(enemy_getFrame(dt));
         ar.setPosition(b2d.getPosition().x - getWidth()/2, b2d.getPosition().y - getHeight()/2);
         targetX = x;
         targetY = y;
@@ -47,6 +57,7 @@ public class Enemy extends Submarines {
     public void update(float dt) {}
     public Enemy (World world, PlayScreen screen, Vector2 pos, String enemy_type, Body playerBody){
         super(world, screen, pos, enemy_type, playerBody);
+        fixture.setUserData(this);
 
     }
 }

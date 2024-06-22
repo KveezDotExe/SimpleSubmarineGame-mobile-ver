@@ -3,11 +3,9 @@ package com.kakstd.game.Tools;
 import com.badlogic.gdx.ai.steer.Steerable;
 import com.badlogic.gdx.ai.steer.SteeringAcceleration;
 import com.badlogic.gdx.ai.steer.SteeringBehavior;
-import com.badlogic.gdx.ai.steer.behaviors.RaycastObstacleAvoidance;
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.kakstd.game.Sprites.Submarine;
 import com.kakstd.game.SubmarineGame;
 
 public class EnemiesSteeringBehaviour implements Steerable<Vector2> {

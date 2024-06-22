@@ -12,16 +12,15 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kakstd.game.Scenes.Controller;
-import com.kakstd.game.Sprites.Enemies;
+import com.kakstd.game.Sprites.Enemy;
 import com.kakstd.game.Sprites.Player;
+import com.kakstd.game.Sprites.PlayerSpawn;
 import com.kakstd.game.Sprites.SpawnPoints;
-import com.kakstd.game.Sprites.Submarine;
 import com.kakstd.game.Sprites.Torpedo_enemy;
 import com.kakstd.game.Sprites.Torpedo_player;
 import com.kakstd.game.SubmarineGame;
@@ -30,10 +29,10 @@ import com.kakstd.game.Tools.WorldContactListener;
 
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.Random;
 
 
 public class PlayScreen implements Screen {
+    private boolean gameStarted = false;
     private Torpedo_player torpedoPlayer;
     private Torpedo_enemy torpedoEnemy;
     private TextureAtlas atlas;
@@ -47,18 +46,20 @@ public class PlayScreen implements Screen {
     private World world;
     private Box2DDebugRenderer b2dr;
     public Player player;
-    public Enemies enemy;
+    public Enemy enemy;
     Controller controller;
     private LinkedList<Torpedo_player> torpedoPlayerList = new LinkedList<Torpedo_player>();
     private LinkedList<Torpedo_enemy> enemyTorpedoList = new LinkedList<Torpedo_enemy>();
-    private LinkedList<Enemies> enemyList = new LinkedList<>();
+    private LinkedList<Enemy> enemyList = new LinkedList<>();
     private LinkedList<SpawnPoints> spawns;
+    private LinkedList<PlayerSpawn> player_spawns;
     private float fEnd = 0.125f;
     float PfStart = 0;
     float SpawnEnd = 5f;
     float SpawnStart = 0;
     private ShapeRenderer sr = new ShapeRenderer();
     public ParticleEffect torpedo_explosion;
+    public Hud hud;
 
 
 
@@ -92,20 +93,23 @@ public class PlayScreen implements Screen {
 
         new B2WorldCreator(world, map);
         spawns = new LinkedList<>(B2WorldCreator.spawnPoints);
+        player_spawns = new LinkedList<>(B2WorldCreator.playerSpawns);
         world.setContactListener(new WorldContactListener());
 
         //define a player
-        player = new Player(world, this, 96,96, "Player");
+        player = new Player(world, this, player_spawns.get(0).getBody().getPosition(), "Player");
 
         //def controller
         controller = new Controller(SubmarineGame.batch);
+        //HUD
+        hud = new Hud(game.batch, player.getHealth());
         
     }
     public void SpawnEnemies(float dt){
         SpawnStart += dt;
         if(enemyList.size() <= 30 && (SpawnStart - SpawnEnd) >= 0){
-            Vector2 pos = spawns.get(MathUtils.random(spawns.size())).getBody().getPosition();
-            enemyList.add(new Enemies(world, this, pos, "enemy_lvl_1", player.getBody()));
+            Vector2 pos = spawns.get(MathUtils.random(spawns.size() -1)).getBody().getPosition();
+            enemyList.add(new Enemy(world, this, pos, "enemy_lvl_1", player.getBody()));
             SpawnStart = 0;
         }
     }
@@ -139,27 +143,30 @@ public class PlayScreen implements Screen {
 
     }
     public void EnemyListIterator(float dt){
-        ListIterator<Enemies> iterator = enemyList.listIterator();
+        ListIterator<Enemy> iterator = enemyList.listIterator();
         while (iterator.hasNext()){
-            Enemies enemies = iterator.next();
+            Enemy enemies = iterator.next();
             enemies.draw(game.batch);
+            if(!enemies.enemy_isAlive){
+                iterator.remove();
+                enemies.world.destroyBody(enemies.b2d);
+            }
         }
     }
     public void EnemyListIteratorlogic(float dt){
-        ListIterator<Enemies> iterator = enemyList.listIterator();
+        ListIterator<Enemy> iterator = enemyList.listIterator();
         while (iterator.hasNext()){
-            Enemies enemies = iterator.next();
-
-            enemies.update(dt, player.b2d.getPosition().x, player.b2d.getPosition().y);
+            Enemy enemies = iterator.next();
+            enemies.enemy_update(dt, player.b2d.getPosition().x, player.b2d.getPosition().y);
             enemies.p1.set(enemies.b2d.getPosition().x, enemies.b2d.getPosition().y);
             enemies.p2.set(player.b2d.getPosition().x, player.b2d.getPosition().y);
             enemies.AI(enemyTorpedoList, this, enemies, torpedoEnemy, dt);
         }
     }
     public void EnemyListIteratorRender(){
-        ListIterator<Enemies> iterator = enemyList.listIterator();
+        ListIterator<Enemy> iterator = enemyList.listIterator();
         while (iterator.hasNext()){
-            Enemies enemies = iterator.next();
+            Enemy enemies = iterator.next();
             sr.line(enemies.p1, enemies.p2);
             sr.line(enemies.collision, enemies.normal);
 
@@ -199,12 +206,19 @@ public class PlayScreen implements Screen {
         ShootMech(dt);
         world.step(1/60f, 6,2);
         player.update(dt);
+        hud.update(dt, player.getHealth());
         SpawnEnemies(dt);
         EnemyListIteratorlogic(dt);
         cam.position.x = player.b2d.getPosition().x;
         cam.position.y = player.b2d.getPosition().y;
         cam.update();
         renderer.setView(cam);
+    }
+    public boolean playerIsDead(){
+        if(player.isAlive){
+            return false;
+        }
+        return true;
     }
     @Override
     public void show() {
@@ -213,13 +227,18 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         // handle render loop
         update(delta);
         // clearing game screen (black color)
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         // map render
         renderer.render();
+        //hud rend
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
 
         // player render
         game.batch.setProjectionMatrix(cam.combined);
@@ -230,16 +249,23 @@ public class PlayScreen implements Screen {
         PlayertorpedoListIterator();
         EnemytorpedoListIterator();
         game.batch.end();
-        sr.setProjectionMatrix(cam.combined);
+
+
+        //render debug lines
+        /*sr.setProjectionMatrix(cam.combined);
         sr.begin(ShapeRenderer.ShapeType.Line);
         EnemyListIteratorRender();
         sr.end();
-        //render debug lines
-        b2dr.render(world,cam.combined);
+        b2dr.render(world,cam.combined);*/
+
+
         //draw touchpad
         SubmarineGame.batch.setProjectionMatrix(controller.stage.getCamera().combined);
         controller.stage.draw();
-
+        if(playerIsDead()){
+            game.setScreen(new MainMenu(game));
+            dispose();
+        }
 
 
 
@@ -268,13 +294,11 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-        world.dispose();
         map.dispose();
         renderer.dispose();
         texture.dispose();
         game.dispose();
         controller.dispose();
-        enemy.dispose();
         b2dr.dispose();
         torpedo_explosion.dispose();
         atlas.dispose();

@@ -1,7 +1,5 @@
 package com.kakstd.game.Tools;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,13 +12,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.kakstd.game.Screens.PlayScreen;
-import com.kakstd.game.Sprites.Enemies;
 import com.kakstd.game.Sprites.Enemy;
 import com.kakstd.game.Sprites.Player;
-import com.kakstd.game.Sprites.Submarine;
 import com.kakstd.game.SubmarineGame;
-
-import java.util.LinkedList;
 
 public abstract class Torpedo extends Sprite {
 
@@ -50,6 +44,7 @@ public abstract class Torpedo extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2d = world.createBody(bdef);
         fdef = new FixtureDef();
+        fdef.isSensor = true;
         fdef.filter.categoryBits = SubmarineGame.BULLET_BIT;
         fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.GROUND_BIT | SubmarineGame.PLAYER_BIT;
         PolygonShape shape = new PolygonShape();
@@ -75,8 +70,9 @@ public abstract class Torpedo extends Sprite {
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2d = world.createBody(bdef);
         fdef = new FixtureDef();
+        fdef.isSensor = true;
         fdef.filter.categoryBits = SubmarineGame.BULLET_BIT;
-        fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.GROUND_BIT | SubmarineGame.PLAYER_BIT;
+        fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.GROUND_BIT | SubmarineGame.ENEMY_BIT;
         PolygonShape shape = new PolygonShape();
         shape.setAsBox( (float)((16/2)/SubmarineGame.PPM), (float)((16/2)/SubmarineGame.PPM));
         fdef.shape = shape;

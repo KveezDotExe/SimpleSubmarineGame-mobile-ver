@@ -1,0 +1,38 @@
+{
+  "com.badlogic.gdx.graphics.Color":{
+    "white": { "r":1, "g": 1,"b": 1, "a":1 },
+    "black": { "r":0, "g": 0,"b": 0, "a":1 },
+    "red": { "a": 1.0, "b": 0.0, "g": 0.0, "r": 1.0 },
+    "green": { "a": 1.0, "b": 0.0, "g": 1.0, "r": 0.0 },
+    "blue": { "a": 1.0, "b": 1.0, "g": 0.0, "r": 0.0 },
+    "yellow": { "a": 1, "r": 1, "g": 1, "b": 0 }
+    "orange": { hex: "#9a6802ff" }
+  },
+  "com.badlogic.gdx.graphics.g2d.BitmapFont":{
+    "white": { "file": "Fonts/White.fnt" }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle":{
+    "default":{ "font": "white", "fontColor": "white" },
+    "yellow":{ "font": "white", "fontColor": "yellow" },
+    "red":{ "font": "white", "fontColor": "red" },
+    "black":{ "font": "white", "fontColor": "black" }
+    "orange":{ "font": "white", "fontColor": "orange" }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle":{
+    "default":{ "titleFont": "white", "titleFontColor": "red", "background": "WorkshopBackground"  },
+    "default1":{ "titleFont": "white", "titleFontColor": "red", "background": "WorkshopBackground1"  },
+    "default2":{ "titleFont": "white", "titleFontColor": "red", "background": "WorkshopBackground2"  }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle":{
+    "left": { "up": "WorkshopButtonLeftUp", "down": "WorkshopButtonLeftDown", },
+    "right": { "up": "WorkshopButtonRightUp", "down": "WorkshopButtonRightDown", },
+    "swipe": { up: WorkshopSwipeTableUp, down: WorkshopSwipeTableDown, checked: WorkshopSwipeTableDown }
+    "play": { up: WorkshopSwipeTable, down: WorkshopSwipeTableDown1}
+    "upgrade": { up: WorkshopUpgradeButtonUp, down: WorkshopUpgradeButtonDown}
+
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle":{
+    "default": { "background": WorkshopProgressbarBackground, knob: WorkshopProgressbarKnob, knobBefore: WorkshopProgressbarBefore }
+  }
+
+}

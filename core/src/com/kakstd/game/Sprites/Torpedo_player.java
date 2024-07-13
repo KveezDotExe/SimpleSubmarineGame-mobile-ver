@@ -22,8 +22,8 @@ import java.util.LinkedList;
 public class Torpedo_player extends Torpedo {
 
     public static Fixture f_fixture;
-    public Torpedo_player(World world, PlayScreen screen, Player player, float knobX, float knobY) {
-        super(world, screen, player, knobX, knobY);
+    public Torpedo_player(World world, PlayScreen screen, Player player, float knobX, float knobY, int lvl) {
+        super(world, screen, player, knobX, knobY, lvl);
         fixture.setUserData(this);
 
     }

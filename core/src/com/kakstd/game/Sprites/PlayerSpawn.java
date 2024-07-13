@@ -16,6 +16,17 @@ public class PlayerSpawn extends InteractiveTileObject{
     public Body getBody() {
         return body;
     }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public World getWorld() {
+        return null;
+    }
+
     public PlayerSpawn(World world, TiledMap map, Rectangle point){
         super(world,map,point);
         setCategoryFilter(SubmarineGame.DESTROY_BIT);

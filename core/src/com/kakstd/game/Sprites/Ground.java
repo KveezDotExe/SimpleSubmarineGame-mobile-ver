@@ -20,11 +20,21 @@ public class Ground extends InteractiveTileObject {
 
     @Override
     public void collide_torpedo() {
-        Gdx.app.log("Ground","Collided");
+
     }
 
     @Override
     public Body getBody() {
         return body;
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public World getWorld() {
+        return world;
     }
 }

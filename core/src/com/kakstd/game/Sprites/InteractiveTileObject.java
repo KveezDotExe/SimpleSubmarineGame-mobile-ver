@@ -23,6 +23,8 @@ public abstract class InteractiveTileObject {
     protected Point2D point;
     protected Body body;
     protected Fixture fixture;
+    public boolean Destroyed = false;
+    public int Health;
     public InteractiveTileObject (World world, TiledMap map, Rectangle bounds){
         this.world = world;
         this.map = map;
@@ -39,6 +41,8 @@ public abstract class InteractiveTileObject {
     }
     public abstract void collide_torpedo();
     public abstract Body getBody();
+    public abstract void update();
+    public abstract World getWorld();
     public void setCategoryFilter(short filterBit){
         Filter filter = new Filter();
         filter.categoryBits = filterBit;

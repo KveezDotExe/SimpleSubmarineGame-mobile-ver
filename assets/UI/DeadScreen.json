@@ -1,0 +1,39 @@
+{
+  "com.badlogic.gdx.graphics.Color":{
+    "white": { "r":1, "g": 1,"b": 1, "a":1 },
+    "black": { "r":0, "g": 0,"b": 0, "a":1 },
+    "red": { "a": 1.0, "b": 0.0, "g": 0.0, "r": 1.0 },
+    "green": { "a": 1.0, "b": 0.0, "g": 1.0, "r": 0.0 },
+    "blue": { "a": 1.0, "b": 1.0, "g": 0.0, "r": 0.0 },
+    "yellow": { "a": 1, "r": 1, "g": 1, "b": 0 }
+  },
+  "com.badlogic.gdx.graphics.g2d.BitmapFont":{
+    "white": { "file": "Fonts/White.fnt" }
+  },
+
+  "com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle":{
+    "default":{ "titleFont": "white", "titleFontColor": "red", "background": "DeadWindowBackground"  }
+    "default2":{ "titleFont": "white", "titleFontColor": "red", "background": "DeadWindowBackground2"  }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle":{
+    "default":{ "font": "white", "fontColor": "white" },
+    "yellow":{ "font": "white", "fontColor": "yellow" }
+    "red":{ "font": "white", "fontColor": "red" }
+    "black":{ "font": "white", "fontColor": "black" }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle":{
+    "restart": { "up": "DeadWindowRestartButtonUp", "down": "DeadWindowRestartButtonDown", }
+    "workshop": { "up": "DeadWindowWorkshopButtonUp", "down": "DeadWindowWorkshopButtonDown", }
+    "add": { "up": "AddUp", "down": "AddDown", }
+  },
+
+  "com.badlogic.gdx.scenes.scene2d.ui.Table":{
+    "default": { background: "DeadWindowBackground", tablePrefWidth: 256, tablePrefHeight: 256 }
+    "default2": { background: "DeadWindowBackground2", tablePrefWidth: 256, tablePrefHeight: 256 }
+  },
+  "com.badlogic.gdx.scenes.scene2d.ui.Image":{
+    default: { drawable: "DeadWindowLabel" }
+  }
+
+
+}

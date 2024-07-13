@@ -293,5 +293,5 @@ behind: false
 premultipliedAlpha: true
 spriteMode: single
 - Image Paths -
-particle.png
+Bubble.png
 

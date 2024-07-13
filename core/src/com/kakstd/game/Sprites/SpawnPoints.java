@@ -16,6 +16,16 @@ public class SpawnPoints extends InteractiveTileObject{
         return body;
     }
 
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public World getWorld() {
+        return null;
+    }
+
     public SpawnPoints(World world, TiledMap map, Rectangle point){
         super(world,map,point);
         setCategoryFilter(SubmarineGame.DESTROY_BIT);

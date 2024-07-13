@@ -1,13 +1,17 @@
 package com.kakstd.game.Tools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.kakstd.game.Screens.PlayScreen;
 import com.kakstd.game.Sprites.Enemy;
 import com.kakstd.game.Sprites.InteractiveTileObject;
 import com.kakstd.game.Sprites.Player;
+import com.kakstd.game.Sprites.Ruby;
+import com.kakstd.game.Sprites.RubyOre;
 import com.kakstd.game.Sprites.Torpedo_enemy;
 import com.kakstd.game.Sprites.Torpedo_player;
 
@@ -36,6 +40,24 @@ public class WorldContactListener implements ContactListener {
                 }
                 if(torpedoBox.getUserData().getClass() == Torpedo_player.class && object.getUserData().getClass() == Torpedo_enemy.class){
                     ((Torpedo) torpedoBox.getUserData()).Explosion();
+                }
+                if((torpedoBox.getUserData().getClass() == Torpedo_player.class || torpedoBox.getUserData().getClass() == Torpedo_enemy.class) && object.getUserData().getClass() == RubyOre.class){
+                    ((Torpedo) torpedoBox.getUserData()).Explosion();
+                    ((RubyOre) object.getUserData()).collide_torpedo();
+                }
+                if(torpedoBox.getUserData().getClass() == Torpedo_player.class && object.getUserData().getClass() == Torpedo_enemy.class || torpedoBox.getUserData().getClass() == Torpedo_enemy.class && object.getUserData().getClass() == Torpedo_player.class){
+                    ((Torpedo)torpedoBox.getUserData()).Explosion();
+                    ((Torpedo) object.getUserData()).Explosion();
+                }
+
+            }
+            if(Collectables.class.isAssignableFrom(fixtureA.getUserData().getClass()) || Collectables.class.isAssignableFrom(fixtureB.getUserData().getClass())){
+                Fixture collectable = Collectables.class.isAssignableFrom(fixtureA.getUserData().getClass()) ? fixtureA : fixtureB;
+                Fixture player = collectable == fixtureA ? fixtureB:fixtureA;
+                if(player.getUserData().getClass() == Player.class) {
+                    ((Collectables) collectable.getUserData()).collect();
+                    Gdx.app.log("Collected ", String.valueOf(PlayScreen.collected_gold));
+                    Gdx.app.log("Collected ", String.valueOf(PlayScreen.collected_scrap));
                 }
             }
         }

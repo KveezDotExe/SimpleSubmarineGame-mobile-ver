@@ -22,8 +22,8 @@ import java.util.LinkedList;
 public class Torpedo_enemy extends Torpedo {
     public static Fixture f_fixture;
 
-    public Torpedo_enemy(World world, PlayScreen screen, Enemy player, float knobX, float knobY) {
-        super(world, screen, player, knobX, knobY);
+    public Torpedo_enemy(World world, PlayScreen screen, Enemy player, float knobX, float knobY, int lvl) {
+        super(world, screen, player, knobX, knobY, lvl);
         fixture.setUserData(this);
     }
 

@@ -1,0 +1,9 @@
+UI.png
+size:512,256
+repeat:none
+DeadWidget
+bounds:246,102,200,150
+ButtonDown
+bounds:2,128,242,124
+ButtonUp
+bounds:2,2,242,124

@@ -1,6 +1,7 @@
 package com.kakstd.game.Sprites;
 
 import com.badlogic.gdx.ai.GdxAI;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -10,6 +11,7 @@ import com.kakstd.game.Tools.Submarines;
 import java.util.LinkedList;
 
 public class Enemy extends Submarines {
+    public boolean runAI = true;
     @Override
     public int getHealth() {
         return Health;
@@ -22,12 +24,12 @@ public class Enemy extends Submarines {
 
     @Override
     public void AI(LinkedList<Torpedo_enemy> ammo, PlayScreen screen, Enemy enem, Torpedo_enemy torpedoEnemy, float dt) {
-        if(ar.contains(targetX,targetY)) {
+        if(ar.contains(targetX,targetY) && runAI) {
             enemy.update(dt);
             GdxAI.getTimepiece().update(dt);
             world.rayCast(callback, p1, p2);
             if (enemy_fStart - enemy_fEnd >= 0 && enemy_decideShoot) {
-                ammo.add(torpedoEnemy = new Torpedo_enemy(world, screen, enem, playerXpos, playerYpos));
+                ammo.add(torpedoEnemy = new Torpedo_enemy(world, screen, enem, playerXpos, playerYpos, enemy_lvl));
                 enemy_fStart = 0;
             }
             playerXpos = 0;
@@ -55,9 +57,17 @@ public class Enemy extends Submarines {
 
     @Override
     public void update(float dt) {}
-    public Enemy (World world, PlayScreen screen, Vector2 pos, String enemy_type, Body playerBody){
+    public Enemy (World world, PlayScreen screen, Vector2 pos, int enemy_type, Body playerBody){
         super(world, screen, pos, enemy_type, playerBody);
         fixture.setUserData(this);
+
+    }
+    public Body getBody(){
+        return b2d;
+    }
+
+    @Override
+    public void draw(Batch batch, float dt) {
 
     }
 }

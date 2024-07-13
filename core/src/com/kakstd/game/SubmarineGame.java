@@ -1,9 +1,13 @@
 package com.kakstd.game;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.kakstd.game.Screens.Data;
 import com.kakstd.game.Screens.MainMenu;
 import com.kakstd.game.Screens.PlayScreen;
+import com.kakstd.game.Screens.Workshop;
 
 
 public class SubmarineGame extends Game {
@@ -16,12 +20,18 @@ public class SubmarineGame extends Game {
 	public static final short GROUND_BIT = 8;
 	public static final short DESTROY_BIT = 16;
 	public static final short BULLET_BIT = 32;
+
+	public static  final short ENEMY_BULLET_BIT = 64;
+	public static final short ORE_BIT = 128;
+	public static final short COLLECTABLE_BIT = 256;
 	public static SpriteBatch batch;
 	public static ParticleEffect effect;
+
+	public Data data = new Data();
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		setScreen(new MainMenu(this));
+		setScreen(new MainMenu(this, data));
 	}
 
 

@@ -1,8 +1,12 @@
 package com.kakstd.game.Sprites;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.kakstd.game.Screens.Data;
 import com.kakstd.game.Screens.PlayScreen;
+import com.kakstd.game.Screens.Workshop;
+import com.kakstd.game.SubmarineGame;
 import com.kakstd.game.Tools.Submarines;
 
 import java.util.LinkedList;
@@ -29,14 +33,17 @@ public class Player extends Submarines {
         if(Health <= 0){
             Health = 0;
             isAlive = false;
-            world.destroyBody(b2d);
+            lastposX = b2d.getPosition().x;
+            lastposY = b2d.getPosition().y;
 
         }
-        setPosition(b2d.getPosition().x - getWidth()/2, b2d.getPosition().y - getHeight()/2);
-        setRegion(getFrame(dt));
+        else {
+            setPosition(b2d.getPosition().x - getWidth() / 2, b2d.getPosition().y - getHeight() / 2);
+            setRegion(getFrame(dt));
+        }
     }
-    public Player (World world, PlayScreen screen, Vector2 player_pos, String type){
-        super(world, screen, player_pos, type);
+    public Player (World world, PlayScreen screen, Vector2 player_pos, int type, Data data){
+        super(world, screen, player_pos, type, data);
         fixture.setUserData(this);
     }
 }

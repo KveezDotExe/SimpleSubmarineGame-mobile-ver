@@ -24,7 +24,7 @@ public abstract class Torpedo extends Sprite {
     private Enemy npc;
     private Player player;
     private TextureRegion torpedoTex;
-    private float speed;
+    protected float speed;
     private float startShoot = 0;
     private float nextShoot = 5;
     private float rt = 0;
@@ -58,6 +58,7 @@ public abstract class Torpedo extends Sprite {
                 fdef.shape = shape;
                 fixture = b2d.createFixture(fdef);
                 b2d.applyLinearImpulse(new Vector2(knobX, knobY).nor().scl(speed), b2d.getWorldCenter(), true);
+
                 Vector2 linearVelocity = getLinearVelocity();
                 float newOrientation = vectorToAngle(linearVelocity);
                 b2d.setTransform(b2d.getPosition(), newOrientation);
@@ -128,6 +129,67 @@ public abstract class Torpedo extends Sprite {
         }
     }
 
+    //AI AIM FOR PLAYER
+    public Torpedo (boolean AI,World world, PlayScreen screen, Player player, Vector2 bulletWay, int lvl){
+        super(screen.getAtlas().findRegion("Torpedo_Meksikano"));
+        switch (lvl) {
+            case(1):
+                setOriginCenter();
+                torpedoTex = new TextureRegion(getTexture(), 335, 16, 16, 16);
+                this.world = world;
+                this.player = player;
+                speed = 4;
+                rt = new Vector2(bulletWay).angleDeg();
+                BodyDef bdef = new BodyDef();
+                bdef.linearDamping = 1f;
+                bdef.position.set((player.b2d.getPosition().x), (player.b2d.getPosition().y));
+                bdef.type = BodyDef.BodyType.DynamicBody;
+                b2d = world.createBody(bdef);
+                fdef = new FixtureDef();
+                fdef.isSensor = true;
+                fdef.filter.categoryBits = SubmarineGame.BULLET_BIT;
+                fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.GROUND_BIT | SubmarineGame.ENEMY_BIT | SubmarineGame.ENEMY_BULLET_BIT | SubmarineGame.ORE_BIT;
+                PolygonShape shape = new PolygonShape();
+                shape.setAsBox((float) ((16 / 2) / SubmarineGame.PPM), (float) ((16 / 2) / SubmarineGame.PPM));
+                fdef.shape = shape;
+                fixture = b2d.createFixture(fdef);
+                b2d.applyLinearImpulse(new Vector2(bulletWay).nor().scl(speed), b2d.getWorldCenter(), true);
+                Vector2 linearVelocity = getLinearVelocity();
+                float newOrientation = vectorToAngle(linearVelocity);
+                b2d.setTransform(b2d.getPosition(), newOrientation);
+                scaleX = 1;
+                scaleY = 1;
+                break;
+            case (2):
+                setOriginCenter();
+                torpedoTex = new TextureRegion(getTexture(), 156, 0, 64, 32);
+                this.world = world;
+                this.player = player;
+                speed = 2;
+                rt = new Vector2(bulletWay).angleDeg();
+                bdef = new BodyDef();
+                bdef.linearDamping = 1f;
+                bdef.position.set((player.b2d.getPosition().x), (player.b2d.getPosition().y));
+                bdef.type = BodyDef.BodyType.DynamicBody;
+                b2d = world.createBody(bdef);
+                fdef = new FixtureDef();
+                fdef.isSensor = true;
+                fdef.filter.categoryBits = SubmarineGame.BULLET_BIT;
+                fdef.filter.maskBits = SubmarineGame.DEFAULT_BIT | SubmarineGame.GROUND_BIT | SubmarineGame.ENEMY_BIT | SubmarineGame.ENEMY_BULLET_BIT | SubmarineGame.ORE_BIT;
+                shape = new PolygonShape();
+                shape.setAsBox((float) ((32 / 2) / SubmarineGame.PPM), (float) ((64 / 2) / SubmarineGame.PPM));
+                fdef.shape = shape;
+                fixture = b2d.createFixture(fdef);
+                b2d.applyLinearImpulse(new Vector2(bulletWay).nor().scl(speed), b2d.getWorldCenter(), true);
+                linearVelocity = getLinearVelocity();
+                newOrientation = vectorToAngle(linearVelocity);
+                b2d.setTransform(b2d.getPosition(), newOrientation);
+                scaleX = 3.5f;
+                scaleY = 2;
+                break;
+        }
+    }
+
     @Override
     public void draw(Batch batch){
         batch.draw(torpedoTex, b2d.getPosition().x-(getWidth()/2)/SubmarineGame.PPM, b2d.getPosition().y-(getHeight()/2)/SubmarineGame.PPM, (getWidth()/2)/SubmarineGame.PPM,
@@ -136,6 +198,7 @@ public abstract class Torpedo extends Sprite {
     }
 
     public abstract void Explosion();
+    public abstract void update(float dt);
     public void setCategoryFilter(short filterBit){
         Filter filter = new Filter();
         filter.categoryBits = filterBit;

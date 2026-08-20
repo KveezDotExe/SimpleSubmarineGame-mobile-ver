@@ -15,7 +15,7 @@ public class Ruby extends Collectables {
 
     @Override
     public void collect() {
-        PlayScreen.collected_gold += 200;
+        PlayScreen.collected_gold += 50;
         collected =true;
     }
 

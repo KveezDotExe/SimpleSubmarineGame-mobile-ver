@@ -1,5 +1,5 @@
 {
-    "automappingRulesFile": "",
+    "automappingRulesFile": "rules.txt",
     "commands": [
     ],
     "compatibilityVersion": 1100,
@@ -10,5 +10,34 @@
     "properties": [
     ],
     "propertyTypes": [
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 1,
+            "members": [
+            ],
+            "name": "Класс0",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Перечисление0",
+            "storageType": "int",
+            "type": "enum",
+            "values": [
+            ],
+            "valuesAsFlags": false
+        }
     ]
 }

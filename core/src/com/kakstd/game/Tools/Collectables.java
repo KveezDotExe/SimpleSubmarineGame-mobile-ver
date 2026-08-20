@@ -42,7 +42,8 @@ public abstract class Collectables extends Sprite {
                 shape.setRadius(8/SubmarineGame.PPM);
                 fdef.shape = shape;
                 b2d.createFixture(fdef);
-                shape.setRadius(9/SubmarineGame.PPM);
+                shape.setRadius(64f/SubmarineGame.PPM);
+                fdef.isSensor =true;
                 fdef.filter.categoryBits = SubmarineGame.COLLECTABLE_BIT;
                 fdef.filter.maskBits = SubmarineGame.PLAYER_BIT;
                 fdef.shape = shape;
@@ -63,7 +64,8 @@ public abstract class Collectables extends Sprite {
                 shape.setRadius(8/SubmarineGame.PPM);
                 fdef.shape = shape;
                 b2d.createFixture(fdef);
-                shape.setRadius(9/SubmarineGame.PPM);
+                shape.setRadius(64f/SubmarineGame.PPM);
+                fdef.isSensor = true;
                 fdef.filter.categoryBits = SubmarineGame.COLLECTABLE_BIT;
                 fdef.filter.maskBits = SubmarineGame.PLAYER_BIT;
                 fdef.shape = shape;

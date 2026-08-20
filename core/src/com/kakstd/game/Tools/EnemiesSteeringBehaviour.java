@@ -39,7 +39,7 @@ public class EnemiesSteeringBehaviour implements Steerable<Vector2> {
             anyAcceleration = true;
 
         }
-
+        // -------------------- FIXTURE ROTATION + MOVEMENT--------------------
         if (steeringOutput.angular != 0) {
             // this method internally scales the torque by deltaTime
             body.applyTorque(steeringOutput.angular, true);
@@ -53,6 +53,7 @@ public class EnemiesSteeringBehaviour implements Steerable<Vector2> {
                 body.setTransform(body.getPosition(), newOrientation);
             }
         }
+        //------------------------------------------------------------------
         if(anyAcceleration){
             Vector2 velocity = body.getLinearVelocity();
             float currentSpeedSqrt = velocity.len2();

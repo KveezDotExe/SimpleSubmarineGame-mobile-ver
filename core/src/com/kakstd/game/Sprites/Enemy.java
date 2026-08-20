@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.kakstd.game.Screens.PlayScreen;
 import com.kakstd.game.Tools.Submarines;
-
 import java.util.LinkedList;
 
 public class Enemy extends Submarines {
@@ -19,7 +18,15 @@ public class Enemy extends Submarines {
 
     @Override
     public void onDamage() {
-        Health = Health - 20;
+        switch (PlayScreen.torpedo_lvl){
+            case(1):
+                Health = Health - 20;
+                break;
+            case (2):
+                Health = Health - 100;
+                break;
+
+        }
     }
 
     @Override

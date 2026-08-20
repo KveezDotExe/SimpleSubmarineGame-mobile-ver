@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -21,32 +20,38 @@ public class Hud {
     public int Health;
     private Label healthLabel;
     private Label collectedGold;
+    private Label showDeep;
     private Image goldheap;
     private int gold;
-
+    private int deep;
+    Table table;
     private Texture texture;
-    private Sprite sprite;
 
-    public Hud(SpriteBatch spriteBatch, int Health, int gold ){
+
+    public Hud(SpriteBatch spriteBatch, int Health, int gold, int deep){
         this.Health = Health;
         this.gold = gold;
+        this.deep = deep;
         viewport = new FitViewport(SubmarineGame.V_WIDTH, SubmarineGame.V_HEIGHT, new OrthographicCamera());
         stage = new Stage(viewport, spriteBatch);
-        Table table = new Table();
+        table = new Table();
         table.top();
         table.setFillParent(true);
         healthLabel = new Label("HEALTH: " + String.format("%d", Health), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         collectedGold = new Label(String.format("%d", gold), new Label.LabelStyle(new BitmapFont(),Color.WHITE));
-        table.add(healthLabel).expandX().left().padTop(15).padLeft(15);
+        showDeep = new Label(String.format("%d", deep) + "m", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        table.add(healthLabel).expandX().left().padTop(30).padLeft(30);
+        table.add(showDeep).center().padRight(280).padTop(30);
         texture = new Texture(Gdx.files.internal("Hud/GoldCoinHeap.png"));
         goldheap = new Image(texture);
-        table.add(collectedGold).padTop(15).right().padRight(15);
-        table.add(goldheap).padTop(15).right().padRight(15);
+        table.add(collectedGold).padTop(30).right().padRight(30);
+        table.add(goldheap).padTop(30).right().padRight(30);
         stage.addActor(table);
 
     }
-    public void update(float dt, int Health, int gold){
+    public void update(float dt, int Health, int gold, int deep){
         healthLabel.setText("HEALTH: " + String.format("%d", Health));
         collectedGold.setText(String.format("%d", gold));
+        showDeep.setText(String.format("%d", deep)+ "m");
     }
 }

@@ -3,6 +3,7 @@ package com.kakstd.game.Sprites;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -25,6 +26,7 @@ public abstract class InteractiveTileObject {
     protected Fixture fixture;
     public boolean Destroyed = false;
     public int Health;
+    public Vector2 wallPos;
     public InteractiveTileObject (World world, TiledMap map, Rectangle bounds){
         this.world = world;
         this.map = map;
@@ -34,6 +36,7 @@ public abstract class InteractiveTileObject {
         PolygonShape shape = new PolygonShape();
         bdef.type = BodyDef.BodyType.StaticBody;
         bdef.position.set((float) ((bounds.x + bounds.getWidth()/2)/ SubmarineGame.PPM), (float) ((bounds.y+bounds.getHeight()/2)/SubmarineGame.PPM));
+        wallPos = new Vector2(bdef.position);
         body = world.createBody(bdef);
         shape.setAsBox((float) ((bounds.getWidth()/2)/SubmarineGame.PPM), (float) ((bounds.getHeight()/2)/SubmarineGame.PPM));
         fdef.shape = shape;

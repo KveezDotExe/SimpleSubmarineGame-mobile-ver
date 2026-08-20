@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.kakstd.game.Screens.PlayScreen;
 import com.kakstd.game.Sprites.Enemy;
+import com.kakstd.game.Sprites.Ground;
 import com.kakstd.game.Sprites.InteractiveTileObject;
 import com.kakstd.game.Sprites.Player;
 import com.kakstd.game.Sprites.Ruby;
@@ -58,6 +59,13 @@ public class WorldContactListener implements ContactListener {
                     ((Collectables) collectable.getUserData()).collect();
                     Gdx.app.log("Collected ", String.valueOf(PlayScreen.collected_gold));
                     Gdx.app.log("Collected ", String.valueOf(PlayScreen.collected_scrap));
+                }
+            }
+            if((Ground.class.isAssignableFrom(fixtureA.getUserData().getClass()) && Player.class.isAssignableFrom(fixtureB.getUserData().getClass())) || (Player.class.isAssignableFrom(fixtureA.getUserData().getClass()) && Ground.class.isAssignableFrom(fixtureB.getUserData().getClass()))){
+                Fixture ground = Ground.class.isAssignableFrom(fixtureA.getUserData().getClass()) ? fixtureA : fixtureB;
+                Fixture player = ground == fixtureA ? fixtureB : fixtureA;
+                if(player.getUserData().getClass() == Player.class){
+                    Player.calculateAI();
                 }
             }
         }

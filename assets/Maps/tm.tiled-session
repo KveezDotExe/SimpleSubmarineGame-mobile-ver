@@ -3,7 +3,8 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map.tmx",
+    "activeFile": "mapTest.tmx",
+    "automapping.whileDrawing": true,
     "expandedProjectPaths": [
         "."
     ],
@@ -12,36 +13,224 @@
         "": {
             "scaleInDock": 1
         },
+        ":/automap-tiles.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "C:/Users/kosty/Documents/Maps/map/Rules/autotile rules.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 415.5,
+                "y": 213
+            }
+        },
+        "C:/Users/kosty/Documents/Maps/map/terra.tsx": {
+            "scaleInDock": 1
+        },
+        "C:/Users/kosty/Documents/subgame/assets/terra.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "autotile rules.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1004,
+                "y": 369.5
+            }
+        },
+        "autotile rules.tmx#bricks2": {
+            "scaleInDock": 1
+        },
         "bricks.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "bricks2.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "bricks3.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 3
         },
-        "map.tmx": {
+        "bricks4.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "bt.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "grass rules.tmx": {
             "scale": 1.5,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 453.66666666666663,
-                "y": 540
+                "x": 161.99999999999997,
+                "y": 146.66666666666663
+            }
+        },
+        "grass.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 28,
+            "viewCenter": {
+                "x": 400.3333333333333,
+                "y": 319.66666666666663
+            }
+        },
+        "grass.tmx#bricks2": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "grass.tmx#moreLights": {
+            "scaleInDock": 1
+        },
+        "lightning.tmx": {
+            "expandedObjectLayers": [
+                4
+            ],
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 175.66666666666666,
+                "y": 117.33333333333331
+            }
+        },
+        "map.tmx": {
+            "expandedObjectLayers": [
+                5,
+                56,
+                99,
+                94,
+                4,
+                3
+            ],
+            "scale": 0.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 9599,
+                "y": 9599
             }
         },
         "map.tmx#bricks": {
+            "scaleInEditor": 1
+        },
+        "map.tmx#bricks2": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map.tmx#moreLights": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "mapTest.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 21,
+            "viewCenter": {
+                "x": 7568,
+                "y": 2000
+            }
+        },
+        "mapTest.tmx#bricks2": {
+            "scaleInDock": 1
+        },
+        "mapTest.tmx#moreLights": {
+            "scaleInDock": 1
+        },
+        "moreLights.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "moreLights_rules.tmx": {
+            "expandedObjectLayers": [
+                9,
+                6,
+                5,
+                7,
+                11,
+                8,
+                12,
+                10,
+                4
+            ],
+            "scale": 2,
+            "selectedLayer": 11,
+            "viewCenter": {
+                "x": 479.75,
+                "y": 319.75
+            }
+        },
+        "moreLights_rules.tmx#moreLights": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "walls.tmx": {
+            "expandedObjectLayers": [
+                2
+            ],
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 479.83333333333326,
+                "y": 319.8333333333333
+            }
+        },
+        "water.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
     "frame.defaultDuration": 250,
     "last.exportedFilePath": "C:/Users/kosty/Documents/subgame/assets/Maps",
+    "last.externalTilesetPath": "C:/Users/kosty/Documents/subgame/assets/Maps",
     "last.imagePath": "C:/Users/kosty/Documents/subgame/assets/Maps",
+    "last.objectTemplatePath": "C:/Users/kosty/Documents/subgame/assets/Maps",
     "map.lastUsedExportFilter": "Все файлы (*)",
     "map.lastUsedFormat": "tmx",
+    "mapScene.enableWorlds": true,
     "openFiles": [
         "map.tmx",
-        "bricks.tsx"
+        "mapTest.tmx",
+        "bricks.tsx",
+        "autotile rules.tmx",
+        "grass.tmx",
+        "bricks2.tsx",
+        "moreLights.tsx",
+        "moreLights_rules.tmx",
+        "walls.tmx"
     ],
     "project": "tm.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "map.tmx",
+        "walls.tmx",
+        "moreLights_rules.tmx",
+        "moreLights.tsx",
+        "bricks2.tsx",
+        "grass.tmx",
+        "autotile rules.tmx",
         "bricks.tsx",
-        "map.tmx"
+        "mapTest.tmx",
+        "lightning.tmx",
+        "grass rules.tmx",
+        "bt.tsx"
     ],
-    "tileset.lastUsedFormat": "tsx"
+    "tileset.lastUsedFilter": "Файлы набора тайлов Tiled (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 2,
+    "tileset.spacing": 2,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
 }

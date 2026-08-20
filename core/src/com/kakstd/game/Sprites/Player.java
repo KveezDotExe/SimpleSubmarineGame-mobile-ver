@@ -12,6 +12,7 @@ import com.kakstd.game.Tools.Submarines;
 import java.util.LinkedList;
 
 public class Player extends Submarines {
+    public static boolean switcher = false;
     @Override
     public int getHealth() {
         return Health;
@@ -46,4 +47,11 @@ public class Player extends Submarines {
         super(world, screen, player_pos, type, data);
         fixture.setUserData(this);
     }
+    public static boolean calculateAI(){
+        return switcher = true;
+    }
+    public int getMaxDeep(){
+        return MaxDeep;
+    }
+
 }

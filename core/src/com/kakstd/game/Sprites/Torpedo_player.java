@@ -20,16 +20,30 @@ import java.util.LinkedList;
 
 
 public class Torpedo_player extends Torpedo {
-
+    private float start = 0;
+    private float end = 1.3f;
     public static Fixture f_fixture;
+
     public Torpedo_player(World world, PlayScreen screen, Player player, float knobX, float knobY, int lvl) {
         super(world, screen, player, knobX, knobY, lvl);
         fixture.setUserData(this);
 
     }
+    public Torpedo_player(boolean AI, World world, PlayScreen screen, Player player, Vector2 vector2, int lvl){
+        super(AI,world, screen, player, vector2, lvl);
+        fixture.setUserData(this);
+    }
 
     @Override
     public void Explosion() {
         Explose = true;
+    }
+
+    @Override
+    public void update(float dt) {
+        start += dt;
+        if(start - end >= 0){
+            Explose = true;
+        }
     }
 }

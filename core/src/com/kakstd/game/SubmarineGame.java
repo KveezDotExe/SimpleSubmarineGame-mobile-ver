@@ -13,7 +13,7 @@ import com.kakstd.game.Screens.Workshop;
 public class SubmarineGame extends Game {
 	public static final int V_WIDTH = 800;
 	public static final int V_HEIGHT = 600;
-	public static final float PPM = 100;
+	public static final float PPM = 128;
 	public static final short DEFAULT_BIT = 1;
 	public static final short PLAYER_BIT = 2;
 	public static final short ENEMY_BIT = 4;
@@ -24,6 +24,8 @@ public class SubmarineGame extends Game {
 	public static  final short ENEMY_BULLET_BIT = 64;
 	public static final short ORE_BIT = 128;
 	public static final short COLLECTABLE_BIT = 256;
+	public static final short CAMBORDER_BIT = 512;
+	public static final short LIGHT_BIT = 1024;
 	public static SpriteBatch batch;
 	public static ParticleEffect effect;
 

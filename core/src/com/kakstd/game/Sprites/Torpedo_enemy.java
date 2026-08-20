@@ -20,6 +20,8 @@ import java.util.LinkedList;
 
 
 public class Torpedo_enemy extends Torpedo {
+    private float start = 0;
+    private float end = 1f;
     public static Fixture f_fixture;
 
     public Torpedo_enemy(World world, PlayScreen screen, Enemy player, float knobX, float knobY, int lvl) {
@@ -30,6 +32,14 @@ public class Torpedo_enemy extends Torpedo {
     @Override
     public void Explosion() {
         Explose = true;
+    }
+
+    @Override
+    public void update(float dt) {
+        start += dt;
+        if(start - end >= 0){
+            Explose = true;
+        }
     }
 }
 
